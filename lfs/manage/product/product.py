@@ -70,13 +70,14 @@ class ProductDataForm(forms.ModelForm):
         super(ProductDataForm, self).__init__(*args, **kwargs)
         self.fields["template"].widget = SelectImage(choices=PRODUCT_TEMPLATES)
         self.fields["active_base_price"].widget = LFSCheckboxInput(check_test=lambda v: v != 0)
+        self.fields["display_discount_button"].widget = LFSCheckboxInput(check_test=lambda v: v != 0)
         man_count = Manufacturer.objects.count()
         if man_count > getattr(settings, 'LFS_SELECT_LIMIT', 20):
             self.fields["manufacturer"].widget = HiddenInput()
 
     class Meta:
         model = Product
-        fields = ("active", "name", "slug", "manufacturer", "sku", "sku_manufacturer", "price", "tax", "price_calculator",
+        fields = ("active", "display_discount_button", "name", "slug", "manufacturer", "sku", "sku_manufacturer", "price", "tax", "price_calculator",
                   "short_description", "description", "for_sale", "for_sale_price", "static_block", "template",
                   "active_price_calculation", "price_calculation", "price_unit", "unit", "type_of_quantity_field",
                   "active_base_price", "base_price_unit", "base_price_amount")

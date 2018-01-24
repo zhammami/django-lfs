@@ -695,6 +695,7 @@ class Product(models.Model):
     objects = ActiveManager()
 
     uid = models.CharField(max_length=50, editable=False, unique=True, default=get_unique_id_str)
+    display_discount_button = models.BooleanField(_(u"Preisanfrage anzeigen"), default=False)
 
     class Meta:
         ordering = ("name", )
